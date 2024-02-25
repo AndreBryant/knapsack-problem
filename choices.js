@@ -14,3 +14,4 @@ const speakers = new Thing("speakers", 10, 4);
 const papers = new Thing("papers", 25, 5);
 
 export const choices = [ phone, laptop, pencil, headphones, speakers, papers ];
+export const weightLimit = 7;

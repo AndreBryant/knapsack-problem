@@ -1,13 +1,59 @@
-import { choices } from "./choices.js";
+import { choices, weightLimit } from "./choices.js";
 import { generatePopulation } from "./population.js";
 import { fitness } from "./fitness.js";
+import { select_pair } from "./population.js";
+import { singlePointCrossover } from "./dna.js";
+import { mutate } from "./dna.js";
 
-let genomes = [];
-let populationSize = 5;
-let population = generatePopulation(choices.length, populationSize);
+// let genomes = [];
+// let populationSize = 5;
+// let population = generatePopulation(choices.length, populationSize);
 
+// let selected = select_pair(population, fitness, choices, weightLimit);
 
-//just to test the fitness func
-for (const entity of population) {
-    console.log(entity,":", fitness(entity, choices, 10))
+// let crossed = singlePointCrossover(selected[0].genome, selected[1].genome); 
+
+// console.log(crossed[0], '->',mutate(crossed[0], 1))
+
+const populationSize = 100;
+const generationLimit = 100;
+const fitnessLimit = 10;
+
+let cum = 0;
+for (let i = 0; i < 11; i++){
+    const bestSolution = startEvolution(choices, weightLimit, generatePopulation, fitness, fitnessLimit, select_pair, singlePointCrossover, mutate, generationLimit)[0];
+    
+    const fit = fitness(bestSolution, choices, weightLimit);
+
+    cum += fit
+    console.log(bestSolution, '-fitness->' ,fit)
 }
+
+console.log("average fitness", cum/10)
+
+function startEvolution(choices, weightLimit, generatePopulation, fitnessFunc, fitnessLimit, select_pair, crossover, mutate, generationLimit) {
+    let population = generatePopulation(choices.length, populationSize);
+    
+    for (let gen = 0; gen < generationLimit; gen++){
+        population.sort((a,b) => fitnessFunc(b, choices, weightLimit) - fitnessFunc(a, choices, weightLimit));
+        
+        if (population[0] >= fitnessLimit) {
+            break;
+        }
+        
+        let nextGeneration = population.slice(0,2);
+        for (let i =  0; i < parseInt(population.length/2) - 1; i++) {
+            const parents = select_pair(population, fitness, choices, weightLimit);
+            let children = crossover(parents[0], parents[1]);
+            nextGeneration.push(mutate(children[0]));
+            nextGeneration.push(mutate(children[1]));
+        }
+        population = nextGeneration;
+    } 
+
+    population.sort((a,b) => fitnessFunc(b, choices, weightLimit) - fitnessFunc(a, choices, weightLimit));
+
+    return population;
+
+}
+

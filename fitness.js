@@ -1,7 +1,7 @@
 export function fitness(genome, choices, weightLimit) {
     //TODO put the choices on a separate file
     if (genome.length !== choices.length) {
-        return new Error("Genome length should be equal to the length of choices.")
+        return new Error("Fitness error: Genome length should be equal to the length of choices.")
     }
 
     let weight = 0,
