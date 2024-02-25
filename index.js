@@ -5,16 +5,6 @@ import { select_pair } from "./population.js";
 import { singlePointCrossover } from "./dna.js";
 import { mutate } from "./dna.js";
 
-// let genomes = [];
-// let populationSize = 5;
-// let population = generatePopulation(choices.length, populationSize);
-
-// let selected = select_pair(population, fitness, choices, weightLimit);
-
-// let crossed = singlePointCrossover(selected[0].genome, selected[1].genome); 
-
-// console.log(crossed[0], '->',mutate(crossed[0], 1))
-
 const populationSize = 1000;
 const generationLimit = 100;
 const fitnessLimit = 100;
@@ -22,9 +12,8 @@ const fitnessLimit = 100;
 let cum = 0;
 for (let i = 0; i < 11; i++){
     const bestSolution = startEvolution(choices, weightLimit, generatePopulation, fitness, fitnessLimit, select_pair, singlePointCrossover, mutate, generationLimit)[0];
-    
     const fit = fitness(bestSolution, choices, weightLimit);
-
+    
     cum += fit
     console.log(bestSolution, '-fitness->' ,fit)
 }
