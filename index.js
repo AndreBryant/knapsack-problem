@@ -1,9 +1,7 @@
 import { choices, weightLimit } from "./choices.js";
-import { generatePopulation } from "./population.js";
+import { generatePopulation, select_pair } from "./population.js";
 import { fitness } from "./fitness.js";
-import { select_pair } from "./population.js";
-import { singlePointCrossover } from "./dna.js";
-import { mutate } from "./dna.js";
+import { singlePointCrossover, mutate } from "./dna.js";
 
 const populationSize = 1000;
 const generationLimit = 100;
@@ -13,7 +11,7 @@ let cum = 0;
 for (let i = 0; i < 11; i++){
     const bestSolution = startEvolution(choices, weightLimit, generatePopulation, fitness, fitnessLimit, select_pair, singlePointCrossover, mutate, generationLimit)[0];
     const fit = fitness(bestSolution, choices, weightLimit);
-    
+
     cum += fit
     console.log(bestSolution, '-fitness->' ,fit)
 }
