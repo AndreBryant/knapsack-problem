@@ -15,9 +15,9 @@ import { mutate } from "./dna.js";
 
 // console.log(crossed[0], '->',mutate(crossed[0], 1))
 
-const populationSize = 100;
+const populationSize = 1000;
 const generationLimit = 100;
-const fitnessLimit = 10;
+const fitnessLimit = 100;
 
 let cum = 0;
 for (let i = 0; i < 11; i++){
