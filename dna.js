@@ -6,6 +6,7 @@ class Genome {
 }
 
 export function generateGenome(genomeLength) {
+    //TODO return a Genome object
     let genome = "";
     for (let i = 0; i < genomeLength; i++) {
         genome += (Math.random() < 0.5) ? "0" : "1";
