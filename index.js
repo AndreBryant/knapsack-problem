@@ -6,6 +6,7 @@ import { singlePointCrossover, mutate } from "./dna.js";
 const populationSize = 1000;
 const generationLimit = 100;
 const fitnessLimit = 100;
+const probability = 0.1;
 
 let cum = 0;
 for (let i = 0; i < 11; i++){
@@ -32,8 +33,8 @@ function startEvolution(choices, weightLimit, generatePopulation, fitnessFunc, f
         for (let i =  0; i < parseInt(population.length/2) - 1; i++) {
             const parents = select_pair(population, fitness, choices, weightLimit);
             let children = crossover(parents[0], parents[1]);
-            nextGeneration.push(mutate(children[0]));
-            nextGeneration.push(mutate(children[1]));
+            nextGeneration.push(mutate(children[0]), probability);
+            nextGeneration.push(mutate(children[1]), probability);
         }
         population = nextGeneration;
     } 
