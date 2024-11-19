@@ -8,16 +8,16 @@ const generationLimit = 100;
 const fitnessLimit = 100;
 const probability = 0.1;
 
-let cum = 0;
+let accumulated = 0;
 for (let i = 0; i < 11; i++){
     const bestSolution = startEvolution(choices, weightLimit, generatePopulation, fitness, fitnessLimit, select_pair, singlePointCrossover, mutate, generationLimit)[0];
     const fit = fitness(bestSolution, choices, weightLimit);
 
-    cum += fit
+    accumulated += fit
     console.log(bestSolution, '-fitness->' ,fit)
 }
 
-console.log("average fitness", cum/10)
+console.log("average fitness", accumulated/10)
 
 function startEvolution(choices, weightLimit, generatePopulation, fitnessFunc, fitnessLimit, select_pair, crossover, mutate, generationLimit) {
     let population = generatePopulation(choices.length, populationSize);
